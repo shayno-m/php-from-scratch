@@ -19,7 +19,36 @@ $name = trim(fgets(STDIN));
 echo "\nHi, {$name}! Your movie booking starts here.\n\n";
 
 // TODO 1: Create an array of at least three movies, each with a title and rating.
+
+$movies = [
+    [
+        "title" => "Interstellar",
+        "rating" => "PG-13"
+    ],
+    [   
+        "title" => "Weapons",
+        "rating" => "R"
+    ],
+    [
+        "title" => "Forrest Gump",
+        "rating" => "PG-13"
+    ],
+    [
+        "title" => "Parasite",
+        "rating" => "R"
+    ]
+];
+
+echo $movies[0]["rating"];
+echo $movies[3]["title"];
+echo $movies[1]["rating"];
+
 // TODO 2: Display the movies as a numbered menu, using a loop.
+
+
+
+
+
 // TODO 3: Ask the user to choose a movie; reject invalid choices.
 // TODO 4: Ask how many tickets they want (between 1 and 6).
 // TODO 5: Loop once per ticket, asking for that person's age.
