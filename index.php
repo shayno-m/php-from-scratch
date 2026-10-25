@@ -39,17 +39,37 @@ $movies = [
     ]
 ];
 
-echo $movies[0]["rating"];
-echo $movies[3]["title"];
-echo $movies[1]["rating"];
+// echo $movies[0]["rating"];
+// echo $movies[3]["title"];
+// echo $movies[1]["rating"];
 
 // TODO 2: Display the movies as a numbered menu, using a loop.
 
+echo "Take a look at our list of available movies below:\n\n";
 
-
-
+foreach($movies as $i => $movie) {
+    echo ($i + 1) . ". Movie: {$movie['title']}, Rating: {$movie['rating']}\n";
+}
 
 // TODO 3: Ask the user to choose a movie; reject invalid choices.
+
+echo "\nPlease select a movie by submitting a value randing from 1 to 4";
+
+function movieSelection()
+{
+    $user_selection = readline(" >>");
+
+    /*if (! $user_selection) {
+        return "Please submit an answer between 1 - 4 to select your movie.";
+    } */
+
+    if ($user_selection === 1) {
+        echo "You have selected Interstellar";
+    }
+
+}
+
+movieSelection();
 // TODO 4: Ask how many tickets they want (between 1 and 6).
 // TODO 5: Loop once per ticket, asking for that person's age.
 // TODO 6: Work out the ticket type and price for each age.
