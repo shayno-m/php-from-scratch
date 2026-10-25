@@ -53,25 +53,85 @@ foreach($movies as $i => $movie) {
 
 // TODO 3: Ask the user to choose a movie; reject invalid choices.
 
-echo "\nPlease select a movie by submitting a value randing from 1 to 4";
-
 function movieSelection()
 {
-    $user_selection = readline(" >>");
 
-    /*if (! $user_selection) {
-        return "Please submit an answer between 1 - 4 to select your movie.";
-    } */
-
-    if ($user_selection === 1) {
-        echo "You have selected Interstellar";
-    }
-
+    do {
+        echo "\n";
+        $user_selection = readline("\nPlease select a movie by submitting a value ranging from 1-4: ");
+        
+        if ($user_selection === "1") {
+            echo "You have selected Interstellar!\n";
+            break;
+        }   elseif ($user_selection === "2") {
+                echo "You have selected Weapons!\n";
+                break;
+        }   elseif ($user_selection === "3") {
+                echo "You have selected Forrest Gump!\n";
+                break;
+        }   elseif ($user_selection === "4") {
+                echo "You have selected Parasite!\n";
+                break;
+        }
+    } while ($user_selection > "4" || $user_selection < "1");
 }
 
+// will come back to looking at how to dynamically program the movie names in instead of hardcoding them
+// also got a question about type coersion / changing the types to match e.g string/string or int/int
+
 movieSelection();
+
 // TODO 4: Ask how many tickets they want (between 1 and 6).
+
+function ticketPurchase()
+{
+    
+    do {
+        $ticket_number = readline("How many tickets would you like to purchase? You can purchase up to 6 tickets per booking. Please provide a value between 1-6 to continue. ");
+        
+        if ($ticket_number === "1") {
+            echo "You have selected one ticket.\n";
+            return 1;
+        }   elseif ($ticket_number === "2") {
+                echo "You have selected two tickets.\n";
+                return 2;
+        }   elseif ($ticket_number === "3") {
+                echo "You have selected three tickets.\n";
+                return 3;
+        }   elseif ($ticket_number === "4") {
+                echo "You have selected four tickets.\n";
+                return 4;
+        }   elseif ($ticket_number === "5") {
+                echo "You have selected five tickets.\n";
+                return 5;
+        } elseif ($ticket_number === "6") {
+                echo "You have selected six tickets.\n";
+                return 6;
+        }
+
+    } while ($ticket_number > "6" || $ticket_number < "1");
+}
+
 // TODO 5: Loop once per ticket, asking for that person's age.
+$ticket_amount = ticketPurchase();
+// var_dump("Number Test: $ticket_amount");
+
+function customerAge()
+{
+    global $ticket_amount;
+
+    do {
+        $age = readline("\nPlease provide the age of each ticket holder:  ");
+        $ticket_amount--;
+    } while ($ticket_amount > 0);
+
+    return $age;
+}
+
+$age_check = customerAge();
+
+var_dump("Age Test: $age_check");
+
 // TODO 6: Work out the ticket type and price for each age.
 // TODO 7: Check the selected film's classification against each age.
 // TODO 8: Print a receipt with the ticket breakdown and total.
