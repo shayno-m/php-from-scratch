@@ -85,8 +85,8 @@ movieSelection();
 
 function ticketPurchase()
 {
-    
     do {
+
         $ticket_number = readline("How many tickets would you like to purchase? You can purchase up to 6 tickets per booking. Please provide a value between 1-6 to continue. ");
         
         if ($ticket_number === "1") {
@@ -119,20 +119,29 @@ $ticket_amount = ticketPurchase();
 function customerAge()
 {
     global $ticket_amount;
+    $age_data = [];
+    $i = 1;
 
     do {
         $age = readline("\nPlease provide the age of each ticket holder:  ");
         $ticket_amount--;
+        $i++;
+
     } while ($ticket_amount > 0);
 
-    return $age;
+    $age_data = "$i. Age: {$age}\n";
+    return $age_data;
+
 }
 
 $age_check = customerAge();
 
-var_dump("Age Test: $age_check");
+print_r("Age Test: $age_check");
 
 // TODO 6: Work out the ticket type and price for each age.
+
+
+
 // TODO 7: Check the selected film's classification against each age.
 // TODO 8: Print a receipt with the ticket breakdown and total.
 
