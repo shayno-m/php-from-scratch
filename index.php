@@ -114,33 +114,55 @@ function ticketPurchase()
 
 // TODO 5: Loop once per ticket, asking for that person's age.
 $ticket_amount = ticketPurchase();
-// var_dump("Number Test: $ticket_amount");
+var_dump("Ticket amount: $ticket_amount");
 
 function customerAge()
 {
     global $ticket_amount;
     $age_data = [];
-    $i = 1;
-
+    
     do {
+        var_dump("Ticket amount 2: $ticket_amount");
         $age = readline("\nPlease provide the age of each ticket holder:  ");
         $ticket_amount--;
-        $i++;
+        array_push($age_data, $age);
+        // print_r($age_data);
 
-    } while ($ticket_amount > 0);
+    } while ($ticket_amount > 1);
 
-    $age_data = "$i. Age: {$age}\n";
     return $age_data;
 
 }
 
-$age_check = customerAge();
-
-print_r("Age Test: $age_check");
+customerAge();
+$customer_age = customerAge();
 
 // TODO 6: Work out the ticket type and price for each age.
 
+function ticketType()
+{
+    global $customer_age;
 
+    $ticket_options = [
+        [
+            "ticket" => "adult",
+            "price" => 19.00
+        ],
+        [
+            "ticket" => "child",
+            "price" => 10.00
+        ]
+    ];
+
+    echo $ticket_options[0]["price"];
+    echo $ticket_options[1]["ticket"];
+
+   /* if ($customer_age >= 18) {
+
+    }*/
+}
+
+ticketType();
 
 // TODO 7: Check the selected film's classification against each age.
 // TODO 8: Print a receipt with the ticket breakdown and total.
