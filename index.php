@@ -34,7 +34,7 @@ $movies = [
         "rating" => "MA15+"
     ],
     [
-        "title" => "The haunted House",
+        "title" => "The Haunted House",
         "rating" => "R18+"
     ]
 ];
@@ -53,7 +53,7 @@ foreach($movies as $i => $movie) {
 
 // TODO 3: Ask the user to choose a movie; reject invalid choices.
 
-function movieSelection()
+function movieSelection(array $movies)
 {
 
     do {
@@ -61,25 +61,25 @@ function movieSelection()
         $user_selection = readline("\nPlease select a movie by submitting a value ranging from 1-4: ");
         
         if ($user_selection === "1") {
-            echo "You have selected Star Voyage!\n";
+            echo "You have selected {$movies[0]['title']}!\n";
             break;
         }   elseif ($user_selection === "2") {
-                echo "You have selected The Last Dragon!\n";
+                echo "You have selected {$movies[1]['title']}!\n";
                 break;
         }   elseif ($user_selection === "3") {
-                echo "You have selected Midnight Escape!\n";
+                echo "You have selected {$movies[2]['title']}!\n";
                 break;
         }   elseif ($user_selection === "4") {
-                echo "You have selected The haunted House!\n";
+                echo "You have selected {$movies[3]['title']}!\n";
                 break;
         }
     } while ($user_selection > "4" || $user_selection < "1");
 }
 
-// will come back to looking at how to dynamically program the movie names in instead of hardcoding them
-// also got a question about type coersion / changing the types to match e.g string/string or int/int
 
-movieSelection();
+// Got question about type coersion / changing the types to match e.g string/string or int/int
+
+movieSelection($movies);
 
 // TODO 4: Ask how many tickets they want (between 1 and 6).
 
@@ -124,21 +124,25 @@ $ticket_amount = ticketPurchase();
 function customerAge()
 {
     global $ticket_amount;
+    $ticket_counter = 0;
     $age_data = [];
     
     do {
         //var_dump("Ticket amount 2: $ticket_amount");
-        if ($ticket_amount === 0) break;
+        if ($ticket_counter === $ticket_amount) break;
+
         $age = readline("\nPlease provide the age of each ticket holder:  ");
-        $ticket_amount--;
+        // Want to add some validation to only accept integers here. 
+    
+        $ticket_counter++;
+
         array_push($age_data, $age);
         print_r($age_data);
         //echo $ticket_amount;
 
-    } while ($ticket_amount > 1);
+    } while ($ticket_counter !== $ticket_amount);
 
-    //array_push($age_data, $age);
-    print_r($age_data);
+    //print_r($age_data);
     return $age_data;
 
     /*while ($ticket_amount > 0) {
@@ -154,8 +158,7 @@ function customerAge()
 }
 
 customerAge();
-$customer_age = customerAge();
-//print_r($customer_age);
+//$customer_age = customerAge();
 
 // TODO 6: Work out the ticket type and price for each age.
 
