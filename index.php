@@ -88,6 +88,15 @@ function ticketPurchase()
     do {
 
         $ticket_number = readline("How many tickets would you like to purchase? You can purchase up to 6 tickets per booking. Please provide a value between 1-6 to continue. ");
+
+        $int_to_word = [
+            1 => "one",
+            2 => "two",
+            3 => "three",
+            4 => "four",
+            5 => "five",
+            6 => "six"
+        ];
         
         if ($ticket_number >= 1 && $ticket_number <= 6) {
             $plural = $ticket_number === 1 ? "ticket" : "tickets";
@@ -95,24 +104,7 @@ function ticketPurchase()
             return (int)$ticket_number;
         }
 
-        // Map integers to word values -> Add to string to look pretty :D 
-
-       /* }   elseif ($ticket_number === "2") {
-                echo "You have selected two tickets.\n";
-                return 2;
-        }   elseif ($ticket_number === "3") {
-                echo "You have selected three tickets.\n";
-                return 3;
-        }   elseif ($ticket_number === "4") {
-                echo "You have selected four tickets.\n";
-                return 4;
-        }   elseif ($ticket_number === "5") {
-                echo "You have selected five tickets.\n";
-                return 5;
-        } elseif ($ticket_number === "6") {
-                echo "You have selected six tickets.\n";
-                return 6;
-        }*/
+        // Map integers to word values. Created the array but working on a way to add this in.
 
     } while ($ticket_number > "6" || $ticket_number < "1");
 }
@@ -136,13 +128,12 @@ function customerAge()
     
         $ticket_counter++;
 
-        array_push($age_data, $age);
+        array_push($age_data, (int) $age);
         print_r($age_data);
         //echo $ticket_amount;
 
     } while ($ticket_counter !== $ticket_amount);
 
-    //print_r($age_data);
     return $age_data;
 
     /*while ($ticket_amount > 0) {
@@ -157,8 +148,8 @@ function customerAge()
 
 }
 
-customerAge();
-//$customer_age = customerAge();
+$customer_age = customerAge();
+var_dump($customer_age);
 
 // TODO 6: Work out the ticket type and price for each age.
 
@@ -168,24 +159,39 @@ function ticketType()
 
     $ticket_options = [
         [
-            "ticket" => "adult",
-            "price" => 19.00
-        ],
-        [
             "ticket" => "child",
             "price" => 10.00
+        ],
+        [
+            "ticket" => "adult",
+            "price" => 18.00
+        ], 
+        [
+            "ticket" => "senior",
+            "price" => 12.00
         ]
     ];
 
-    //echo $ticket_options[0]["price"];
-    //echo $ticket_options[1]["ticket"];
+    foreach($ticket_options as $index => $type){
+        
+        $ticket_type = null;
 
-   /* if ($customer_age >= 18) {
+        if ($customer_age >= 65) {
+            print_r($type);
+            $ticket_type = $type["ticket"];
+        } else if ($customer_age < 65 && $customer_age >= 18) {
+            print_r($type);
+            $ticket_type = $type["ticket"];
+        } else if ($customer_age < 18) {
+            print_r($type);
+            $ticket_type = $type["ticket"];
+        }
 
-    }*/
+        return "A {$ticket_type} ticket has been added to your booking.";
+    }
 }
 
-//ticketType();
+ticketType();
 
 // TODO 7: Check the selected film's classification against each age.
 // TODO 8: Print a receipt with the ticket breakdown and total.
