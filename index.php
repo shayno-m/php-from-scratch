@@ -100,11 +100,9 @@ function ticketPurchase()
         
         if ($ticket_number >= 1 && $ticket_number <= 6) {
             $plural = $ticket_number === 1 ? "ticket" : "tickets";
-            echo "You have selected {$ticket_number} {$plural}.\n";
+            echo "You have selected {$int_to_word[$ticket_number]} {$plural}.\n";
             return (int)$ticket_number;
         }
-
-        // Map integers to word values. Created the array but working on a way to add this in.
 
     } while ($ticket_number > "6" || $ticket_number < "1");
 }
@@ -129,71 +127,114 @@ function customerAge()
         $ticket_counter++;
 
         array_push($age_data, (int) $age);
-        print_r($age_data);
+        //print_r($age_data);
         //echo $ticket_amount;
 
     } while ($ticket_counter !== $ticket_amount);
 
     return $age_data;
 
-    /*while ($ticket_amount > 0) {
-        //var_dump("Ticket amount 2: $ticket_amount");
-        $age = readline("\nPlease provide the age of each ticket holder:  ");
-        $ticket_amount--;
-        array_push($age_data, $age);
-        print_r($age_data);
-        //echo $ticket_amount;
-    }*/
-
-
 }
 
 $customer_age = customerAge();
-var_dump($customer_age);
+// var_dump($customer_age);
 
 // TODO 6: Work out the ticket type and price for each age.
 
 function ticketType()
 {
     global $customer_age;
+    $ticket_type_data = [];
+    $ticket_price_data = [];
 
-    $ticket_options = [
+        $ticket_options = [
         [
-            "ticket" => "child",
+            "ticket" => "Child",
             "price" => 10.00
         ],
         [
-            "ticket" => "adult",
+            "ticket" => "Adult",
             "price" => 18.00
         ], 
         [
-            "ticket" => "senior",
+            "ticket" => "Senior",
             "price" => 12.00
         ]
     ];
 
-    foreach($ticket_options as $index => $type){
-        
-        $ticket_type = null;
-
-        if ($customer_age >= 65) {
-            print_r($type);
-            $ticket_type = $type["ticket"];
-        } else if ($customer_age < 65 && $customer_age >= 18) {
-            print_r($type);
-            $ticket_type = $type["ticket"];
-        } else if ($customer_age < 18) {
-            print_r($type);
-            $ticket_type = $type["ticket"];
-        }
-
-        return "A {$ticket_type} ticket has been added to your booking.";
+    foreach($customer_age as $age){
+            if ($age >= 65) {
+                $ticket_type = $ticket_options[2]["ticket"];
+                array_push($ticket_type_data, $ticket_type);
+                $ticket_price = $ticket_options[2]["price"];
+                array_push($ticket_price_data, $ticket_price);
+                echo "Your booking now includes a {$ticket_type} ticket (\${$ticket_price}).\n";
+            } else if ($age < 65 && $age >= 18) {
+                $ticket_type = $ticket_options[1]["ticket"];
+                array_push($ticket_type_data, $ticket_type);
+                $ticket_price = $ticket_options[1]["price"];
+                array_push($ticket_price_data, $ticket_price);
+                echo "Your booking now includes a {$ticket_type} ticket (\${$ticket_price}).\n";
+            } else if ($age < 18) {
+                $ticket_type = $ticket_options[0]["ticket"];
+                array_push($ticket_type_data, $ticket_type);
+                $ticket_price = $ticket_options[0]["price"];
+                array_push($ticket_price_data, $ticket_price);
+                echo "Your booking now includes a {$ticket_type} ticket (\${$ticket_price}).\n";
+            }
     }
-}
+
+    var_dump($ticket_type_data);
+    var_dump($ticket_price_data);
+
+    // Need to look into how I can combine two arrays into one so that I an return that array and use it later.
+    // or potentially perform the rest of the functionality in this function? First option probs best practice
+
+
+    // This was how I was tackling the above resolution initially, but pivoted to a foreach as I was making too
+    // much work for myself
+
+    /*$ticket_type = null;
+    $ticket_price = null;
+    $updated_age_array = $customer_age;
+
+        do {
+                echo "Customer Age IN while";
+                var_dump($updated_age_array);
+
+            if ($updated_age_array >= 65) {
+                $ticket_type = 'Senior';
+                $ticket_price = 12.00;
+                echo "A {$ticket_type} ticket has been added to your booking at a price of \${$ticket_price}.\n";
+                $ticket_amount--;
+                $updated_age_array = array_shift($customer_age);
+            } else if ($updated_age_array < 65 && $updated_age_array >= 18) {
+                $ticket_type = 'Adult';
+                $ticket_price = 18.00;
+                echo "A {$ticket_type} ticket has been added to your booking at a price of \${$ticket_price}.\n";
+                $ticket_amount--;
+                $updated_age_array = array_shift($customer_age);
+            } else if ($updated_age_array < 18) {
+                $ticket_type = 'Child';
+                $ticket_price = 10.00;
+                echo "A {$ticket_type} ticket has been added to your booking at a price of \${$ticket_price}.\n";
+                $ticket_amount--;
+                $updated_age_array = array_shift($customer_age);
+            }
+        } while($ticket_amount > 0);*/
+    }
+
 
 ticketType();
 
 // TODO 7: Check the selected film's classification against each age.
+
+function checkClassification()
+{
+    "wwwwipppp";
+
+
+}
 // TODO 8: Print a receipt with the ticket breakdown and total.
 
 // Tip: Write and test one TODO at a time. Commit your progress!
