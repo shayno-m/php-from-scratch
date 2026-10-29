@@ -79,13 +79,15 @@ function movieSelection(array $movies)
         }
     } while ($user_selection > "4" || $user_selection < "1");
 
+    //var_dump($movie_selection);
     return $movie_selection;
 }
 
 
 // Got question about type coersion / changing the types to match e.g string/string or int/int
 
-movieSelection($movies);
+
+$movie_selection = movieSelection($movies);
 
 // TODO 4: Ask how many tickets they want (between 1 and 6).
 
@@ -146,7 +148,7 @@ $customer_age = customerAge();
 
 // TODO 6: Work out the ticket type and price for each age.
 
-function ticketType(array $movies)
+function ticketType($movie_selection)
 {
     global $customer_age;
     $ticket_type_data = [];
@@ -167,9 +169,35 @@ function ticketType(array $movies)
         ]
     ];
 
-    /*foreach($movies as $i => $movie) {
-        if ($movie["rating"] === 'R18+' && $customer_age)
-    }*/
+    foreach($customer_age as $index => $age)
+        {   
+            if ($movie_selection === 'The Haunted House' && $age < 18) {
+                echo "Ticket " . $index + 1 . ". Please note that you must be at least 18 years old to view {$movie_selection}. \n";
+                echo "If you would like to still add this ticket to your booking, please type in 'yes' or 'no'\n";
+                $continue = trim(readline(">>"));
+                $continue = strtolower($continue);
+                    if ($continue === 'yes'){
+                        continue;
+                    } else if ($continue === 'no') {
+                        echo "No worries. We have removed your ticket from the booking. ";
+                        echo "If you have any other tickets in the order, these will be processed as normal.\n";
+                        var_dump("age array BEFORE splice" . $customer_age);
+                        array_splice($customer_age, $age); // may need to create a new array too so i dont change the original age array
+                        var_dump("age array AFTER splice" . $customer_age);
+                    }
+            } else if ($movie_selection === 'Midnight Escape' && $age < 15) {
+                echo "Ticket " . $index + 1 . ". Please note that you must be at least 18 years old to view {$movie_selection}. \n";
+                echo "If you would like to still add this ticket to your booking, please type in 'yes' or 'no'";
+                $continue = trim(readline(">>"));
+                    if ($continue === 'yes'){
+                        continue;
+                    } else if ($continue === 'no') {
+                        echo "No worries. We have removed your ticket from the booking. ";
+                        echo "If you have any other tickets in the order, these will be processed as normal.\n";
+                        array_splice($customer_age, $age);
+                    }
+            }
+        }
 
     foreach($customer_age as $age){
             if ($age >= 65) {
@@ -185,9 +213,6 @@ function ticketType(array $movies)
                 array_push($ticket_price_data, $ticket_price);
                 echo "Your booking now includes a {$ticket_type} ticket (\${$ticket_price}).\n";
             } else if ($age < 18) {
-                if ($movies["rating"] === 'R18+' && $customer_age){
-
-                }
                 $ticket_type = $ticket_options[0]["ticket"];
                 array_push($ticket_type_data, $ticket_type);
                 $ticket_price = $ticket_options[0]["price"];
@@ -237,13 +262,15 @@ function ticketType(array $movies)
     }
 
 
-ticketType($movies);
+ticketType($movie_selection);
 
 // TODO 7: Check the selected film's classification against each age.
 
 function checkClassification()
 {
-    "wwwwipppp";
+        /*foreach($movies as $i => $movie) {
+        if ($movie["rating"] === 'R18+' && $customer_age)
+    }*/
 
 
 }
