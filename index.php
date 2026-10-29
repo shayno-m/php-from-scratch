@@ -62,18 +62,24 @@ function movieSelection(array $movies)
         
         if ($user_selection === "1") {
             echo "You have selected {$movies[0]['title']}!\n";
+            $movie_selection = $movies[0]['title'];
             break;
         }   elseif ($user_selection === "2") {
                 echo "You have selected {$movies[1]['title']}!\n";
+                $movie_selection = $movies[1]['title'];
                 break;
         }   elseif ($user_selection === "3") {
                 echo "You have selected {$movies[2]['title']}!\n";
+                $movie_selection = $movies[2]['title'];
                 break;
         }   elseif ($user_selection === "4") {
                 echo "You have selected {$movies[3]['title']}!\n";
+                $movie_selection = $movies[3]['title'];
                 break;
         }
     } while ($user_selection > "4" || $user_selection < "1");
+
+    return $movie_selection;
 }
 
 
@@ -103,7 +109,6 @@ function ticketPurchase()
             echo "You have selected {$int_to_word[$ticket_number]} {$plural}.\n";
             return (int)$ticket_number;
         }
-
     } while ($ticket_number > "6" || $ticket_number < "1");
 }
 
@@ -141,7 +146,7 @@ $customer_age = customerAge();
 
 // TODO 6: Work out the ticket type and price for each age.
 
-function ticketType()
+function ticketType(array $movies)
 {
     global $customer_age;
     $ticket_type_data = [];
@@ -162,6 +167,10 @@ function ticketType()
         ]
     ];
 
+    /*foreach($movies as $i => $movie) {
+        if ($movie["rating"] === 'R18+' && $customer_age)
+    }*/
+
     foreach($customer_age as $age){
             if ($age >= 65) {
                 $ticket_type = $ticket_options[2]["ticket"];
@@ -176,6 +185,9 @@ function ticketType()
                 array_push($ticket_price_data, $ticket_price);
                 echo "Your booking now includes a {$ticket_type} ticket (\${$ticket_price}).\n";
             } else if ($age < 18) {
+                if ($movies["rating"] === 'R18+' && $customer_age){
+
+                }
                 $ticket_type = $ticket_options[0]["ticket"];
                 array_push($ticket_type_data, $ticket_type);
                 $ticket_price = $ticket_options[0]["price"];
@@ -225,7 +237,7 @@ function ticketType()
     }
 
 
-ticketType();
+ticketType($movies);
 
 // TODO 7: Check the selected film's classification against each age.
 
