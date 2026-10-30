@@ -18,7 +18,6 @@ $name = trim(fgets(STDIN));
 
 echo "\nHi, {$name}! Your movie booking starts here.\n\n";
 
-// TODO 1: Create an array of at least three movies, each with a title and rating.
 
 $movies = [
     [
@@ -43,15 +42,12 @@ $movies = [
 // echo $movies[3]["title"];
 // echo $movies[1]["rating"];
 
-// TODO 2: Display the movies as a numbered menu, using a loop.
-
 echo "Take a look at our list of available movies below:\n\n";
+echo "\n========================================MOVIES SHOWING ========================================\n";
 
 foreach($movies as $i => $movie) {
     echo ($i + 1) . ". Movie: {$movie['title']}, Rating: {$movie['rating']}\n";
 }
-
-// TODO 3: Ask the user to choose a movie; reject invalid choices.
 
 function movieSelection(array $movies)
 {
@@ -89,7 +85,6 @@ function movieSelection(array $movies)
 
 $movie_selection = movieSelection($movies);
 
-// TODO 4: Ask how many tickets they want (between 1 and 6).
 
 function ticketPurchase()
 {
@@ -108,13 +103,13 @@ function ticketPurchase()
         
         if ($ticket_number >= 1 && $ticket_number <= 6) {
             $plural = $ticket_number === 1 ? "ticket" : "tickets";
-            echo "You have selected {$int_to_word[$ticket_number]} {$plural}.\n";
+            echo "\nYou have selected {$int_to_word[$ticket_number]} {$plural}.\n";
             return (int)$ticket_number;
         }
     } while ($ticket_number > "6" || $ticket_number < "1");
 }
 
-// TODO 5: Loop once per ticket, asking for that person's age.
+
 $ticket_amount = ticketPurchase();
 //var_dump("Ticket amount: $ticket_amount");
 
@@ -128,7 +123,7 @@ function customerAge()
         //var_dump("Ticket amount 2: $ticket_amount");
         if ($ticket_counter === $ticket_amount) break;
 
-        $age = readline("\nPlease provide the age of each ticket holder:  ");
+        $age = readline("\n(Ticket" . " " . ($ticket_counter + 1) . ") Please provide the age of the ticket holder:  ");
         // Want to add some validation to only accept integers here. 
     
         $ticket_counter++;
@@ -145,8 +140,6 @@ function customerAge()
 
 $customer_age = customerAge();
 // var_dump($customer_age);
-
-// TODO 6: Work out the ticket type and price for each age.
 
 function ticketType($movie_selection)
 {
@@ -172,9 +165,9 @@ function ticketType($movie_selection)
     foreach($customer_age as $index => $age)
         {   
             if ($movie_selection === 'The Haunted House' && $age < 18) {
-                echo "Ticket " . $index + 1 . ". Please note that you must be at least 18 years old to view {$movie_selection}. \n";
-                echo "If you would like to still add this ticket to your booking, please type in 'yes' or 'no'\n";
-                $continue = trim(readline(">>"));
+                echo "\n==!!====================================!WARNING!====================================!!==\n";
+                echo "(Ticket " . $index + 1 . ") Please note that you must be at least 18 years old to view {$movie_selection}. \n";
+                $continue = trim(readline("If you would like to still add this ticket to your booking, please type in 'yes' or 'no': "));
                 $continue = strtolower($continue);
                     if ($continue === 'yes'){
                         continue;
@@ -186,9 +179,9 @@ function ticketType($movie_selection)
                         var_dump("age array AFTER splice" . $customer_age);
                     }
             } else if ($movie_selection === 'Midnight Escape' && $age < 15) {
-                echo "Ticket " . $index + 1 . ". Please note that you must be at least 18 years old to view {$movie_selection}. \n";
-                echo "If you would like to still add this ticket to your booking, please type in 'yes' or 'no'";
-                $continue = trim(readline(">>"));
+                echo "\n==!!====================================!WARNING!====================================!!==\n";
+                echo "(Ticket " . $index + 1 . ") Please note that you must be at least 15 years old to view {$movie_selection}. \n";
+                $continue = trim(readline("If you would like to still add this ticket to your booking, please type in 'yes' or 'no': "));
                     if ($continue === 'yes'){
                         continue;
                     } else if ($continue === 'no') {
